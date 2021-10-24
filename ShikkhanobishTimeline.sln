@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShikkhanobishTimeline", "ShikkhanobishTimeline\ShikkhanobishTimeline.csproj", "{A2F0EF8E-2EB8-4E31-BC69-089127C44734}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShikkhanobishTimeline", "ShikkhanobishTimeline\ShikkhanobishTimeline.csproj", "{A2F0EF8E-2EB8-4E31-BC69-089127C44734}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
