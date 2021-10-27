@@ -14,6 +14,7 @@ namespace ShikkhanobishTimeline.Model
         public int userID { get; set; }
         public int userType { get; set; }
         public string imgSrc { get; set; }
+        public string postTitle { get; set; }
         public int noOfComment { get; set; }
         public int tagID { get; set; }
         public string tagName { get; set; }
