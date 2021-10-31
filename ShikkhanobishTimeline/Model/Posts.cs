@@ -19,7 +19,5 @@ namespace ShikkhanobishTimeline.Model
         public int tagID { get; set; }
         public string tagName { get; set; }
         public string Response { get; set; }
-
-
     }
 }

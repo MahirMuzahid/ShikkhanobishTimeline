@@ -1,4 +1,4 @@
-﻿@page "/Comment/{pid}"
+﻿@page "/Comment/{uid}/{pid}"
 @using Flurl.Http;
 @using ShikkhanobishTimeline.Model
 
@@ -42,8 +42,9 @@
                             {
                                 <div class="shadow-lg form-group row m-0">
 
-                                    <img src="@postList[i].imgSrc" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
+                                    <img  src="@postList[i].imgSrc" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
                                 </div>
+                                <br class="m-0"/>
                             }
 
                         </div>
@@ -51,21 +52,18 @@
 
                         </div>
                     </div>
+                    
                 }
             }
         }
-
     }
 
 
-
-
-
-    @for (int m = 0; m < postList.Count; m++)
+    @foreach (var plist in postList)
     {
-        for (int n = 0; n < ansList.Count; n++)
+        foreach (var alist in ansList )
         {
-            if (pid == postList[m].postID && pid == ansList[n].postID)
+            if (pid == plist.postID && pid == alist.postID)
             {
                 <div class="form-group row ">
                     <div class="col-md-4">
@@ -78,26 +76,27 @@
                                     <label><i style="color:#50CB93;font-size:14px" class="fas fa-check-circle"></i></label>
                                 </div>
                                 <div class=" pl-1 ">
-                                    <label style="font-size:11px;font-weight:bold; color:black">@ansList[n].name</label>
+                                    <label style="font-size:11px;font-weight:bold; color:black">@alist.name</label>
                                 </div>
                                 <div class="pl-1" style="">
-                                    <label style="font-size: 8px; ">@ansList[n].answerDate</label>
+                                    <label style="font-size: 8px; ">@alist.answerDate</label>
                                 </div>
                             </div>
                             <div class="m-0 p-0">
-                                <p class="m-0 pl-4" style="font-size:9px"> @ansList[n].answer</p>
+                                <p class="m-0 pl-4" style="font-size:9px"> @alist.answer</p>
                             </div>
                             <div class="form-group row m-0 align-content-center" style="text-align:right">
                                 <div class="col-12" style="text-align: right; font-size: 8px; font-weight: bold; color: black">
-                                    <a href="" style="color:black;"><span>Edit</span></a>&nbsp;
-                                    <span>.</span>&nbsp;
-                                    <a href="" style="color:black;"><span>Teacher Info</span></a>&nbsp;
-                                    <span>.</span>&nbsp;
-                                    <a href="" style="color:black;"><span>Reply</span></a>
+                                    @if (uid == alist.userID.ToString())
+                                    {
+                                        <a href="@($"Comment/{uid}/{pid}")" style="color:black"><span @onclick="(() => Edit(alist))">Edit</span>&nbsp;</a>
+                                        <span>.</span>
+                                    }
+                                    &nbsp;<a href="@($"Comment/{uid}/{pid}")" style="color:black;"><span @onclick="(() => TeacherInfo(alist))">Teacher Info</span></a>&nbsp;
+                                    <span>.</span>
+                                    <a href="@($"Comment/{uid}/{pid}")" style="color:black;"><span @onclick="(() => Reply(alist))">Reply</span></a>
                                 </div>
-
                             </div>
-
                         </div>
                       
 
@@ -106,22 +105,21 @@
 
                     </div>
                 </div>
-
             }
         }
 
     }
-
-
-
-
 
 </body>
 </html>
 
 @code{
     [Parameter]
+    public string uid { get; set; }
+
+    [Parameter]
     public string pid { get; set; }
+
 
     List<Posts> postList = new List<Posts>();
     List<Tags> tagList = new List<Tags>();
@@ -133,6 +131,7 @@
         await GetPost();
 
         await GetAns();
+
     }
     public async Task GetPost()
     {
@@ -147,6 +146,21 @@
     {
         var list = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswer".GetJsonAsync<List<Answers>>();
         ansList = list;
+
+    }
+
+
+    public void Edit(Answers ans)
+    {
+
+    }
+
+    public void TeacherInfo(Answers ans)
+    {
+
+    }
+    public void Reply(Answers ans)
+    {
 
     }
 
