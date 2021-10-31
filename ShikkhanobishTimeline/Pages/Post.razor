@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/{uid}"
 @using Flurl.Http;
 @using ShikkhanobishTimeline.Model
 
@@ -37,33 +37,32 @@
                                 </p>
                             </div>
 
-                            @if(plist.imgSrc != null || plist.imgSrc != "")
-                        {
-                        <div class="shadow-lg form-group row m-0">
+                            @if (plist.imgSrc != null || plist.imgSrc != "")
+                            {
+                                <div class="shadow-lg form-group row m-0">
 
-                            <img src="@plist.imgSrc" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
-                        </div>
-                        }
-                            
-
-                            <div class="form-group row m-0 p-0">
-                                <div class="col-12 m-0 p-1" style="">
-                                    <label class=" m-0">
-                                        <i style="color: blue; font-size: 12px;" class="far fa-comment"></i>&nbsp;<span style="font-size: 10px; color: black; font-weight: bold;">@plist.noOfComment</span>
-                                    </label>
+                                    <img src="@plist.imgSrc" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
 
                                 </div>
-                            </div>
 
+                            }
+
+                        <div class="form-group row m-0 p-0">
+                            
+                            <div class="col-12 m-0 p-1" style="">
+                                <label class=" m-0">
+                                    <i style="color: blue; font-size: 12px;" class="far fa-comment"></i>&nbsp;<span style="font-size: 10px; color: black; font-weight: bold;">@plist.noOfComment</span>
+                                </label>
+                            </div>
+                        </div>
                             <hr class="m-0" />
                             <div class="form-group row m-0 p-0">
                                 <div class="comment col-12 p-1 m-0" style="text-align:center">
-                                   
-                                    <button @onclick="() => GetPostID(plist.postID)"  class="btn btn-outline-primary m-0 p-0" style="width:100%;">
-                                        <span class="m-0"><i style="color:blue;font-size:10px" class="far fa-comment m-0 p-0"></i></span>
-                                        <span class="m-0 p-0" style="color: black; font-size:10px ;">Answer</span>
+                                    <button @onclick="() => GetPostID(plist)" class="btn btn-outline-primary m-0 p-0" style="width:100%;">
+                                        <span class=""><i style="color:blue;font-size:10px" class="far fa-comment"></i></span>
+                                        <span class="" style="color: black; font-size:10px ;">Answer</span>
                                     </button>
-                                    
+
                                 </div>
                             </div>
 
@@ -84,6 +83,8 @@
 @code{
     [Parameter]
     public string pid { get; set; }
+    [Parameter]
+    public string uid { get; set; }
 
     [Inject]
     public NavigationManager nvi { get; set; }
@@ -110,12 +111,11 @@
     }
 
 
-    public void GetPostID(string id)
+    public void GetPostID(Posts post)
     {
-        
-        string redirectURL = "Comment/" + id;
-        nvi.NavigateTo(redirectURL);
 
+        string redirectURL = "Comment/"+uid+"/" + post.postID;
+        nvi.NavigateTo(redirectURL);
     }
 
 
